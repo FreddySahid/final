@@ -14,6 +14,12 @@ public class App
     private static Map<String, Usuario> usuarios = new HashMap<>();
     public static void main( String[] args )
     {
+        System.out.println( "Hello World!" );
+
+        staticFiles.location("/usuario");
+        port(getHerokuAssignedPort());
+
+
         options("/*", (request, response) -> {
 
             String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
@@ -28,6 +34,7 @@ public class App
 
             return "OK";
         });
+
         before((req, res) -> res.header("Access-Control-Allow-Origin", "*"));
 
         get("/usuarios", (req, res) -> {
@@ -80,5 +87,14 @@ public class App
             objetoJson.addProperty("id", id);
             return objetoJson;
         });
+
+    }
+
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
     }
 }
