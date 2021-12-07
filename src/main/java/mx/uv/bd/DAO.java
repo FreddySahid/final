@@ -74,7 +74,7 @@ public class DAO {
                         java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
                         if(desktop.isSupported(java.awt.Desktop.Action.BROWSE)){
                             try{
-                                java.net.URI uri = new java.net.URI("http://127.0.0.1:5500/formulario.html");
+                                java.net.URI uri = new java.net.URI("http://127.0.0.1:5500/src/main/resources/formulario.html");
                                 desktop.browse(uri);
                             } catch (URISyntaxException | IOException ex) {}
                         }
@@ -157,10 +157,11 @@ public class DAO {
 
         con = conexion.getConnection();
         try {
-            String sql = "INSERT INTO preguntas (id, pregunta) VALUES (?, ?)";
+            String sql = "INSERT INTO preguntas (id, pregunta, video) VALUES (?, ?, ?)";
             stm = con.prepareStatement(sql);
             stm.setString(1, p.getId());
             stm.setString(2, p.getPregunta());
+            stm.setString(3, p.getVideo());
 
             if (stm.executeUpdate() > 0)
                 msj = "La pregunta fue agregada";

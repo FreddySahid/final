@@ -3,8 +3,9 @@ package mx.uv.bd;
 public class Pregunta {
     private String id;
     private String pregunta;
+    private String video;
 
-    public Pregunta(String id, String pregunta){
+    public Pregunta(String id, String pregunta, String video){
         this.setID(id);
         this.setPregunta(pregunta);
 
@@ -23,7 +24,16 @@ public class Pregunta {
     }
 
     public void setPregunta(String pregunta){
+        this.pregunta = pregunta;
 
+    }
+
+    public String getVideo(){
+        return video;
+    }
+
+    public void detVideo(String video){
+        this.video = video;
     }
     
 }
