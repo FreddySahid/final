@@ -8,27 +8,37 @@ btnAgregar.addEventListener("click", agregar);
 var txtTarea = document.getElementById("pregunta");
 var listTareas = document.getElementById("preguntas");
 
+
+
 function agregar() {
     let tarea = document.createElement("li");
     tarea.textContent = txtTarea.value;
     let botonBorrar = document.createElement("button");
     let botonEditar = document.createElement("button");
     let botonRespuestas = document.createElement("button");
+
+    
     botonBorrar.innerHTML = "Borrar";
     botonEditar.innerHTML = "Editar";
     botonRespuestas.innerHTML = "Agregar respuestas"
+    udio = document.createElement('video');
+    
+    let archivo = document.createElement("li");
+    archivo.textContent = video.value;
+
+
+    
     listTareas.appendChild(tarea);
     listTareas.appendChild(botonBorrar);
     listTareas.appendChild(botonEditar);
     listTareas.appendChild(botonRespuestas);
-    listTareas.appendChild(grabar);
-    listTareas.appendChild(parar);
-    listTareas.appendChild(camara);
-    camara.width = "100"
+    listTareas.appendChild(archivo);
     console.log("dentro de función" + tarea);
 
     
 }
+
+
 
 //Enviar preguntas a la base de datos
 
@@ -38,6 +48,7 @@ btnAgregar.addEventListener("click", function(){
     axios.post("http://localhost:4567/pregunta", {
         pregunta : document.getElementById("pregunta").value,
         video : document.getElementById('video').value
+        
         
         
         

@@ -8,6 +8,8 @@ public class Pregunta {
     public Pregunta(String id, String pregunta, String video){
         this.setID(id);
         this.setPregunta(pregunta);
+        this.setVideo(video);
+        
 
     }
 
@@ -32,8 +34,10 @@ public class Pregunta {
         return video;
     }
 
-    public void detVideo(String video){
+    public void setVideo(String video){
         this.video = video;
     }
+
+    
     
 }
