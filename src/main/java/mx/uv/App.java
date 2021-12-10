@@ -98,12 +98,10 @@ public class App
             String id = UUID.randomUUID().toString();
             Respuesta r = gson.fromJson(payload, Respuesta.class);
             r.setId(id);
-
-            Pregunta p = gson.fromJson(payload, Pregunta.class);
             
             DAO dao = new DAO();
             JsonObject objetoJson = new JsonObject();
-            objetoJson.addProperty("status", dao.crearRespuesta(r,p));
+            objetoJson.addProperty("status", dao.crearRespuesta(r));
             objetoJson.addProperty("id", id);
             return objetoJson;
         });

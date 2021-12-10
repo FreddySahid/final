@@ -48,7 +48,7 @@ function agregar() {
         //Agrega la respuesta a la base de datos
         axios.post("http://localhost:4567/respuesta", {
         respuesta : document.getElementById("respuesta").value,
-        foranea : idpregunta
+        idpregunta : idpregunta
 
       
         })
@@ -117,6 +117,7 @@ btnAgregar.addEventListener("click", function(){
         alert("mensaje: pregunta creada "+response.data.status+" con id: "+response.data.id);
         id = response.data.id;
         idpregunta = id;
+        
         estado=response.data.status;
     })
     .catch(function (error) {

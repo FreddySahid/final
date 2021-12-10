@@ -190,7 +190,7 @@ public class DAO {
     }
 
     /************************************Crear respuesta*******************************************/
-    public String crearRespuesta(Respuesta r, Pregunta p) {
+    public String crearRespuesta(Respuesta r) {
         PreparedStatement stm = null;
         Connection con = null;
         String msj = "";
@@ -202,7 +202,7 @@ public class DAO {
             stm.setString(1, r.getId());
             stm.setString(2, r.getRespuesta());
             stm.setBoolean(3, r.getValor());
-            stm.setString(4, p.getId());
+            stm.setString(4, r.getIDpregunta());
 
             if (stm.executeUpdate() > 0)
                 msj = "La pregunta fue agregada";
