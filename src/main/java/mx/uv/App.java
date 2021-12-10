@@ -10,6 +10,8 @@ import java.util.UUID;
 import java.util.HashMap;
 public class App 
 {
+   
+
     private static Gson gson = new Gson();
     private static Map<String, Usuario> usuarios = new HashMap<>();
     public static void main( String[] args )
@@ -77,18 +79,31 @@ public class App
         });
 
         /**Preguntas------------------------------------------------------ */
-
+        
         post("/pregunta", (req, res) -> {
             String payload = req.body();
             String id = UUID.randomUUID().toString();
             Pregunta p = gson.fromJson(payload, Pregunta.class);
             p.setID(id);
 
-
-
             DAO dao = new DAO();
             JsonObject objetoJson = new JsonObject();
             objetoJson.addProperty("status", dao.crearPregunta(p));
+            objetoJson.addProperty("id", id);
+            return objetoJson;
+        });
+
+        post("/respuesta", (req, res) -> {
+            String payload = req.body();
+            String id = UUID.randomUUID().toString();
+            Respuesta r = gson.fromJson(payload, Respuesta.class);
+            r.setId(id);
+
+            Pregunta p = gson.fromJson(payload, Pregunta.class);
+            
+            DAO dao = new DAO();
+            JsonObject objetoJson = new JsonObject();
+            objetoJson.addProperty("status", dao.crearRespuesta(r,p));
             objetoJson.addProperty("id", id);
             return objetoJson;
         });

@@ -104,6 +104,7 @@ public class DAO {
 
     }
 
+    /****************************************Listar a los usuarios********************************************/
     public List<Usuario> listaUsuario() {
         Statement stm = null;
         ResultSet rs = null;
@@ -162,6 +163,46 @@ public class DAO {
             stm.setString(1, p.getId());
             stm.setString(2, p.getPregunta());
             stm.setString(3, p.getVideo());
+
+            if (stm.executeUpdate() > 0)
+                msj = "La pregunta fue agregada";
+            else
+                msj = "La pregunta no se agrego";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return msj;
+    }
+
+    /************************************Crear respuesta*******************************************/
+    public String crearRespuesta(Respuesta r, Pregunta p) {
+        PreparedStatement stm = null;
+        Connection con = null;
+        String msj = "";
+
+        con = conexion.getConnection();
+        try {
+            String sql = "INSERT INTO respuestas (id, respuesta, valor, idpregunta) VALUES (?, ?, ?, ?)";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, r.getId());
+            stm.setString(2, r.getRespuesta());
+            stm.setBoolean(3, r.getValor());
+            stm.setString(4, p.getId());
 
             if (stm.executeUpdate() > 0)
                 msj = "La pregunta fue agregada";

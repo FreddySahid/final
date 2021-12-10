@@ -42,7 +42,7 @@ public class Respuesta {
         return valor;
     }
 
-    public void setValor(boolean valor){
+    public void setValor(Boolean valor){
         this.valor = valor;
     }
 
