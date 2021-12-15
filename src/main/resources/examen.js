@@ -52,7 +52,7 @@ iniciar.addEventListener("click", function(){
             soundClips = document.getElementById("xxx")
             clipContainer.appendChild(audio);
             clipContainer.appendChild(clipLabel);
-            clipContainer.appendChild(deleteButton);
+            
             soundClips.appendChild(clipContainer);
       
             audio.controls = true;
@@ -73,24 +73,16 @@ iniciar.addEventListener("click", function(){
     });
 
     //axios para obtener el objeto gson
-    axios.get("http://localhost:4567/preguntas",{
-        
-    })
-    .then(res => {
-        var lista = document.getElementById("preguntas")
-        var fragmento = document.createDocumentFragment()
-        for(var pregun of res){
-            var preguntaslista = document.createElement("li");
-            preguntaslista.textContent = '${pregun.id} - $ {pregun.pregunta}'
-            fragmento.appendChild(preguntaslista) 
-            
-        }
-        lista.appendChild(fragmento)
-
+    axios.get("http://localhost:4567/preguntas")
+    .then(function (response) {
+        console.log(response.data);
+        preguntas(response.data);
     })
     .catch(function (error) {
         console.log(error);
     })
+
+
 
     lista.appendChild(preguntaslista);
 })
@@ -117,5 +109,19 @@ function PARAR(params) {
       }
     // record.style.background = "";
     // record.style.color = "";
+}
+
+function preguntas(u) {
+    let listPreguntas = document.getElementById("preguntas")
+    let preguntas = "";
+    for (let i = 0; i < u.length; i++) {
+        let responder= document.createElement("input");
+        let pregunta = document.createElement("li");
+        pregunta.textContent = u[i].pregunta + " ";
+        responder.type = "text";
+
+        listPreguntas.appendChild(pregunta);
+        listPreguntas.appendChild(responder);
+    }
 }
 

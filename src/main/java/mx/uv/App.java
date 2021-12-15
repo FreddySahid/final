@@ -43,12 +43,15 @@ public class App
             res.redirect("Inicio.html");
             return null;
         });
+        
 
         get("/preguntas", (req, res) -> {
             before((rq, rs) -> rs.type("application/json"));
             DAO dao = new DAO();
             return gson.toJson(dao.lisPreguntas());
         });
+
+
 
         post("/usuario", (req, res) -> {
             String payload = req.body();
@@ -75,6 +78,7 @@ public class App
             dao.buscarUsuario(email, password);
             return objetoJson;
         });
+
 
         /**Preguntas------------------------------------------------------ */
         
@@ -103,6 +107,10 @@ public class App
             objetoJson.addProperty("id", id);
             return objetoJson;
         });
+
+
+
+
 
     }
 

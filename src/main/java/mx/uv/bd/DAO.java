@@ -74,7 +74,8 @@ public class DAO {
                         java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
                         if(desktop.isSupported(java.awt.Desktop.Action.BROWSE)){
                             try{
-                                java.net.URI uri = new java.net.URI("https://finalproyectofreddy.herokuapp.com/examen.html");
+                                
+                                java.net.URI uri = new java.net.URI("https://finalproyectofreddy.herokuapp.com/escoger.html");
                                 desktop.browse(uri);
                             } catch (URISyntaxException | IOException ex) {}
                         }
@@ -103,6 +104,8 @@ public class DAO {
             
 
     }
+
+
 
     /****************************************Listar las preguntas********************************************/
     public List<Pregunta> lisPreguntas(){
