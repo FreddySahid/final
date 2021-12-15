@@ -73,7 +73,7 @@ iniciar.addEventListener("click", function(){
     });
 
     //axios para obtener el objeto gson
-    axios.get("http://localhost:4567/preguntas")
+    axios.get("https://finalproyectofreddy.herokuapp.com/preguntas")
     .then(function (response) {
         console.log(response.data);
         preguntas(response.data);
