@@ -4,10 +4,7 @@ btnRegistrar.addEventListener("click", function () {
         email : document.getElementById("email").value,
         password : document.getElementById("password").value
     }).then(function(){
-        if (response.data.access =="ok")
-            window.location.replace(response.data.page)
-        else
-            alert("datos equivocados");
+        
     })
 })
 
