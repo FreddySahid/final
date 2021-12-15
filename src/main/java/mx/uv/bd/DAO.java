@@ -74,7 +74,7 @@ public class DAO {
                         java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
                         if(desktop.isSupported(java.awt.Desktop.Action.BROWSE)){
                             try{
-                                java.net.URI uri = new java.net.URI("http://127.0.0.1:5500/src/main/resources/formulario.html");
+                                java.net.URI uri = new java.net.URI("https://finalproyectofreddy.herokuapp.com/examen.html");
                                 desktop.browse(uri);
                             } catch (URISyntaxException | IOException ex) {}
                         }
@@ -104,20 +104,20 @@ public class DAO {
 
     }
 
-    /****************************************Listar a los usuarios********************************************/
-    public List<Usuario> listaUsuario() {
+    /****************************************Listar las preguntas********************************************/
+    public List<Pregunta> lisPreguntas(){
         Statement stm = null;
         ResultSet rs = null;
         Connection con = null;
-        List<Usuario> resultado = new ArrayList<>();
+        List<Pregunta> resultado = new ArrayList<>();
 
         con = conexion.getConnection();
         try {
-            String sql = "SELECT * FROM usuarios";
+            String sql = "SELECT * FROM preguntas";
             stm = con.createStatement();
             rs = stm.executeQuery(sql);
             while (rs.next()) {
-                Usuario u = new Usuario(rs.getString("id"), rs.getString("nombre"), rs.getString("email"), rs.getString("password"));
+                Pregunta u = new Pregunta(rs.getString("id"), rs.getString("pregunta"), rs.getString("video"));
                 resultado.add(u);
             }
         } catch (Exception e) {
@@ -201,7 +201,7 @@ public class DAO {
             stm = con.prepareStatement(sql);
             stm.setString(1, r.getId());
             stm.setString(2, r.getRespuesta());
-            stm.setBoolean(3, r.getValor());
+            stm.setInt(3, r.getValor());
             stm.setString(4, r.getIDpregunta());
 
             if (stm.executeUpdate() > 0)

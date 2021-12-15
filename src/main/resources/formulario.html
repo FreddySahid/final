@@ -27,7 +27,7 @@
                 <input type="button" value="+" id="agregar" name="agregar" class="form-control btn btn-info">
             </div>
             <div class="col-2">
-                <input type="file" value="+" id="video" name="video" accept=""  class="form-control btn btn-info">
+                <input type="file" value="+" id="archivo" name="archivo" accept=""  class="form-control btn btn-info">
             </div>
         </div>
 <!-----------------------Lista donde se mostraran las preguntas y sus respectivas respuestas------------------->        
@@ -36,6 +36,8 @@
                 <ul id="preguntas">
                     <label id = "respuestas"></label>
                 </ul>
+                <br>
+                <video id="video" width="60%" controls></video>
             </div>
         </div>
 
@@ -46,13 +48,18 @@
 				<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
 				<h3>Escribe una respuesta</h3>
 				<form action="">
-					<div class="contenedor-inputs">
+					<div class="contenedor-inputs row">
                         <div class="col-10">
                             <input type="text" id="respuesta" name="respuesta" class="form-control" placeholder="Escribe tu respuesta">
+                        </div>
+                        <div class="col-2">
+                            <input type="button" value=1 id="agregaValor" name="agregaValor" placeholder="valor" class="form-control btn btn-info">
                         </div>
 						<div class="col-2">
                             <input type="button" value="+" id="agregaRespuesta" name="agregar" class="form-control btn btn-info">
                         </div>
+                        
+                                                    
 					</div>
 				</form>
 			</div>
@@ -63,9 +70,9 @@
 
     <!--------------------------------------------------------------------------------------------------------->
 
-    <video id="camara" width="10%"></video>
-    <div id="xxx" width="500px"></div>
+    
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="formulario.js"></script>
     
 

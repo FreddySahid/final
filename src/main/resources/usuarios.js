@@ -1,6 +1,6 @@
 var btnRegistrar = document.getElementById("registrar")
 btnRegistrar.addEventListener("click", function () {
-    axios.post("http://localhost:4567/usuario", {
+    axios.post("https://finalproyectofreddy.herokuapp.com/usuario", {
         nombre : document.getElementById("nombre").value,
         email : document.getElementById("email").value,
         password : document.getElementById("password").value
@@ -16,17 +16,6 @@ btnRegistrar.addEventListener("click", function () {
 })
 
 
-var btnUsuarios = document.getElementById("usuarios")
-btnUsuarios.addEventListener("click", function () {
-    axios.get("http://localhost:4567/usuarios")
-    .then(function (response) {
-        console.log(response.data);
-        //usuarios(response.data);
-    })
-    .catch(function (error) {
-        console.log(error);
-    })
-})
 
 function inicio(){
     window.location.href="Inicio.html";

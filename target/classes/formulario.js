@@ -1,6 +1,6 @@
 
-
 var idpregunta;
+var valor = 0;
 /************************************Crear preguntas********************************************************/
 
 var btnAgregar = document.getElementById("agregar");
@@ -9,13 +9,31 @@ btnAgregar.addEventListener("click", agregar);
 var txtTarea = document.getElementById("pregunta");
 var listTareas = document.getElementById("preguntas");
 
-
 var btnAgregarRespuestas = document.getElementById("agregaRespuesta");
-
 
 var txtRespuesta = document.getElementById("respuesta");
 
+var TmpPath;
 
+valor = document.getElementById("agregaValor").value;
+
+var video = document.getElementById("video");
+
+$(document).ready(function() {
+
+    // Escuchamos el evento 'change' del input donde cargamos el archivo
+    $(document).on('change', 'input[type=file]', function(e) {
+      // Obtenemos la ruta temporal mediante el evento
+      TmpPath = URL.createObjectURL(e.target.files[0]);
+      // Mostramos la ruta temporal
+      $('span').html(TmpPath);
+      console.log(TmpPath);
+      
+      video.src=TmpPath;
+      
+    });
+  
+  });
 
 function agregar() {
     let tarea = document.createElement("li");
@@ -23,34 +41,28 @@ function agregar() {
 
     let botonRespuestas = document.createElement("button");
 
-   /*let botonBorrar = document.createElement("button");
-    let botonEditar = document.createElement("button");*/
-   /*botonBorrar.innerHTML = "Borrar";
-    botonEditar.innerHTML = "Editar";*/
     botonRespuestas.innerHTML = "Agregar respuestas";
 
+    var botonValor = document.getElementById("agregaValor")
+    var salto = document.createElement("br")
     
-    let archivo = document.createElement("li");
-    archivo.textContent = video.value;
-    
-
-    
-
     listTareas.appendChild(tarea);
-    /*listTareas.appendChild(botonBorrar);
-    listTareas.appendChild(botonEditar);*/
     listTareas.appendChild(botonRespuestas);
-    listTareas.appendChild(archivo);
+    listTareas.appendChild(salto);
+    listTareas.appendChild(video);
+
 /****************************Agrega la respuesta a la lista de opción multiple*******************************/
+
     btnAgregarRespuestas.addEventListener("click", function(){
+        
         let resp = document.createElement("label");
         resp.textContent = txtRespuesta.value;
+        
         //Agrega la respuesta a la base de datos
-        axios.post("http://localhost:4567/respuesta", {
+        axios.post("https://finalproyectofreddy.herokuapp.com/respuesta", {
         respuesta : document.getElementById("respuesta").value,
+        valor : valor,
         idpregunta : idpregunta
-
-      
         })
         .then(function (response) {
             alert("mensaje: pregunta creada "+response.data.status+" con id: "+response.data.id);
@@ -58,9 +70,7 @@ function agregar() {
             estado=response.data.status;
         })
         .catch(function (error) {
-            console.log(error);
-
-            
+            console.log(error);            
         })
         
         txtRespuesta.value = null;
@@ -68,14 +78,13 @@ function agregar() {
         listTareas.appendChild(resp);
         listTareas.appendChild(salto);
         resp = null;
-        
+      
         console.log("dentro de función" + resp);
 
-
-        
+        valor = 0;
 
     });
-    
+
     /************************Abre la ventana emergente para agregar la respuesta*******************************/
     overlay = document.getElementById('overlay'),
 	popup = document.getElementById('popup'),
@@ -94,22 +103,18 @@ function agregar() {
 
 
     console.log("dentro de función" + tarea);
-
-    
-
-    
+   
 }
-
-
 
 /*************************Enviar preguntas a la base de datos************************************************/
 
 btnAgregar.addEventListener("click", function(){
     
     
-    axios.post("http://localhost:4567/pregunta", {
+    axios.post("https://finalproyectofreddy.herokuapp.com/pregunta", {
         pregunta : document.getElementById("pregunta").value,
-        video : document.getElementById('video').value
+        video : TmpPath 
+
  
         
     })
@@ -126,8 +131,6 @@ btnAgregar.addEventListener("click", function(){
         
     })
 });
-
-
 
 console.log("fuera de función:" + tarea);
 

@@ -4,11 +4,11 @@ public class Respuesta {
 
     private String id;
     private String respuesta;
-    private boolean valor; 
+    private int valor; 
     private String idpregunta;
 
 
-    public Respuesta(String id, String respuesta, boolean valor, String idpregunta){
+    public Respuesta(String id, String respuesta, int valor, String idpregunta){
         this.setId(id);
         this.setRespuesta(respuesta);
         this.setIDpregunta(idpregunta);
@@ -38,11 +38,11 @@ public class Respuesta {
         this.idpregunta = idpregunta;
     }
 
-    public boolean getValor(){
+    public int getValor(){
         return valor;
     }
 
-    public void setValor(Boolean valor){
+    public void setValor(int valor){
         this.valor = valor;
     }
 

@@ -9,57 +9,93 @@ var chunks = [];
 var video = document.querySelector('video');
 var camara = document.getElementById("camara")
 
-navigator.mediaDevices.getUserMedia({
-    audio: false,
-    video: true
-}).then((stream) => {
-    console.log(stream)
-    mediaRecorder = new MediaRecorder(stream, {mimeType: 'video/webm; codecs=vp8'});
+var iniciar = document.getElementById("iniciar");
 
-    // alert('gracias por permitirnos verte')
+
+
+
+iniciar.addEventListener("click", function(){
+
     
-    console.log(video)
-    console.log(camara)
-    video.src = "1.mp4"
-    camara.srcObject = stream;
-    camara.onloadedmetadata = (e) => { camara.play() }
-    mediaRecorder.onstop = () => {
-        console.log("ya se grabó algo!")
-        var clipName = prompt('Enter a name for your sound clip');
 
-        var clipContainer = document.createElement('article');
-        var clipLabel = document.createElement('p');
-        var audio = document.createElement('video');
-        var deleteButton = document.createElement('button');
-        audio.width = "200";
-  
-        clipContainer.classList.add('clip');
-        audio.setAttribute('controls', '');
-        deleteButton.innerHTML = "Delete";
-        clipLabel.innerHTML = clipName;
-  
-        soundClips = document.getElementById("xxx")
-        clipContainer.appendChild(audio);
-        clipContainer.appendChild(clipLabel);
-        clipContainer.appendChild(deleteButton);
-        soundClips.appendChild(clipContainer);
-  
-        audio.controls = true;
-        var blob = new Blob(chunks, {type: 'video/webm; codecs=vp8'});
-        // chunks = [];
-        var audioURL = URL.createObjectURL(blob);
-        audio.src = audioURL;
+    
+    //Función para poder abrir la camara
+    navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: true
+    }).then((stream) => {
+        console.log(stream)
+        mediaRecorder = new MediaRecorder(stream, {mimeType: 'video/webm; codecs=vp8'});
+    
+        // alert('gracias por permitirnos verte')
         
-        // esto debí colocarlo en la función PARAR
-        // mediaRecorder.ondataavailable = function(e) {
-        //     console.log(e)
-        //     chunks.push(e.data);
-        //   }
-    }
-}).catch(function (error) {
-    console.log(error)
-    // alert('Si gustas utilizar este sistema permite el acceso a tu cámara')
-});
+        console.log(video)
+        console.log(camara)
+        video.src = "1.mp4"
+        camara.srcObject = stream;
+        camara.onloadedmetadata = (e) => { camara.play() }
+        mediaRecorder.onstop = () => {
+            console.log("ya se grabó algo!")
+            var clipName = prompt('Enter a name for your sound clip');
+    
+            var clipContainer = document.createElement('article');
+            var clipLabel = document.createElement('p');
+            var audio = document.createElement('video');
+            var deleteButton = document.createElement('button');
+            audio.width = "200";
+      
+            clipContainer.classList.add('clip');
+            audio.setAttribute('controls', '');
+            deleteButton.innerHTML = "Delete";
+            clipLabel.innerHTML = clipName;
+      
+            soundClips = document.getElementById("xxx")
+            clipContainer.appendChild(audio);
+            clipContainer.appendChild(clipLabel);
+            clipContainer.appendChild(deleteButton);
+            soundClips.appendChild(clipContainer);
+      
+            audio.controls = true;
+            var blob = new Blob(chunks, {type: 'video/webm; codecs=vp8'});
+            // chunks = [];
+            var audioURL = URL.createObjectURL(blob);
+            audio.src = audioURL;
+            
+            // esto debí colocarlo en la función PARAR
+            // mediaRecorder.ondataavailable = function(e) {
+            //     console.log(e)
+            //     chunks.push(e.data);
+            //   }
+        }
+    }).catch(function (error) {
+        console.log(error)
+        // alert('Si gustas utilizar este sistema permite el acceso a tu cámara')
+    });
+
+    //axios para obtener el objeto gson
+    axios.get("http://localhost:4567/preguntas",{
+        
+    })
+    .then(res => {
+        var lista = document.getElementById("preguntas")
+        var fragmento = document.createDocumentFragment()
+        for(var pregun of res){
+            var preguntaslista = document.createElement("li");
+            preguntaslista.textContent = '${pregun.id} - $ {pregun.pregunta}'
+            fragmento.appendChild(preguntaslista) 
+            
+        }
+        lista.appendChild(fragmento)
+
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
+
+    lista.appendChild(preguntaslista);
+})
+
+
 
 function GRABAR(params) {
     mediaRecorder.start();
@@ -82,3 +118,4 @@ function PARAR(params) {
     // record.style.background = "";
     // record.style.color = "";
 }
+
